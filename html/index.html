@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Цветочная фея | Магазин цветов</title>
+    <!-- Подключаем шрифты Lora и Montserrat -->
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- Путь к CSS согласно твоей структуре папок -->
+    <link rel="stylesheet" href="../css/index.css">
+</head>
+<body>
+        <div id="intro-overlay">
+            <div class="intro-box">
+                <span id="typed-text"></span><span class="cursor">|</span>
+            </div>
+        </div>
+    <!-- Шапка и главный экран (Hero) -->
+    <header class="hero">
+        <div class="container">
+<nav class="navbar">
+                    <a href="index.html" class="logo" data-config="brandName">Цветочная фея</a>
+
+                    <ul class="nav-links" id="navLinks">
+                        <li><a href="index.html" class="active">Главная</a></li>
+                        <li><a href="index.html#about">О нас</a></li>
+                        <li><a href="catalog.html">Каталог</a></li>
+                    </ul>
+
+                    <div class="nav-right">
+                        <a href="tel:+79277263273" class="phone" data-config="phone" data-icon="true">📞 +7 (927) 726-32-73</a>
+                    <button type="button" class="burger-btn" id="burgerBtn" aria-label="Открыть меню">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                    </div>
+                </nav>
+
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Цветочная фея</h1>
+                    <p class="subtitle">Авторские букеты и композиции от 700 рублей</p>
+                    <p class="tagline">Подарите нежность своим чувствам</p>
+                    <a href="catalog.html" class="btn btn-primary">Перейти в каталог</a>
+                </div>
+                <div class="hero-image">
+                    <div class="hero-slider">
+                        <img src="https://sun9-85.vkuserphoto.ru/s/v1/ig2/t1AdK_QqAQa2bNJQs-P4qArgIfe5A_SOTOIquA3uok2rvES1bvbD3tibbCmd1sP1mFF1Ae4Ntt2nPYtpiwZeI-lL.jpg?quality=95&as=32x57,48x85,72x128,108x192,160x284,240x426,360x639,480x852,540x959,640x1136,720x1278,721x1280&from=bu&u=pq-XgapfBhhu3GoYxNKpN8jIwyIsFJMmN7L2RJKGuDw&cs=721x0" alt="Букет 1" class="slide active">
+                        <img src="https://sun9-63.userapi.com/s/v1/ig2/j1s0R4aCKFEZ62lzOJ9iYzp5fmhkDeIHliRUkBNRGhg1LIu4cZwvf1ImYOJJgKMGD1__CoSUb31zyfw00AoBpMou.jpg?quality=95&crop=0,0,1440,1920&as=32x43,48x64,72x96,108x144,160x213,240x320,360x480,480x640,540x720,640x853,720x960,1080x1440,1280x1707,1440x1920&from=bu&u=w2dw3BoZBHiWljJD3T1AMeaHy9VlWitBZLceVOgxFww&cs=1080x0" alt="Букет 2" class="slide">
+                        <img src="https://sun9-69.vkuserphoto.ru/s/v1/ig2/wDTKwwz3VxxJallzIAL2whFVLFPNe-5PotFf2s5-u9K0nyyfFqdAZrNf4oRSB7Rn3B5vehAHV-mV0YuHoLY74d6n.jpg?quality=95&as=32x43,48x64,72x96,108x144,160x213,240x320,360x480,480x640,540x720,640x853,720x960,1080x1440,1280x1707,1440x1920,1920x2560&from=bu&u=bGoagejDL9g7bqRHx1lxZtEAyoXx4YQTskoTW5_4XQE&cs=1080x0" alt="Букет 3" class="slide">
+                        
+                        <div class="slider-dots">
+                            <span class="dot active" data-index="0"></span>
+                            <span class="dot" data-index="1"></span>
+                            <span class="dot" data-index="2"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Блок: Наши преимущества -->
+    <section class="advantages" id="advantages">
+        <div class="container">
+            <h2 class="section-title">Наши преимущества</h2>
+            <p class="section-subtitle">Мы предлагаем широкий выбор цветов, подходящих для любого случая</p>
+            
+            <div class="advantages-grid">
+                <div class="adv-item">
+                    <span class="adv-number">1</span>
+                    <div class="adv-text">
+                        <h3>Широкий выбор</h3>
+                        <p>Мы предлагаем широкий выбор цветов для любого повода</p>
+                    </div>
+                </div>
+                <div class="adv-item">
+                    <span class="adv-number">2</span>
+                    <div class="adv-text">
+                        <h3>Опытные флористы</h3>
+                        <p>В нашем цветочном магазине работают настоящие мастера своего дела</p>
+                    </div>
+                </div>
+                <div class="adv-item">
+                    <span class="adv-number">3</span>
+                    <div class="adv-text">
+                        <h3>Свежие цветы</h3>
+                        <p>У нас только свежие цветы с регулярными поставками</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Блок: Букеты дня -->
+    <section class="bouquets" id="bouquets">
+        <div class="container">
+            <h2 class="section-title">Букеты дня</h2>
+        <div class="bouquets-grid">
+            <!-- Карточка 1 -->
+            <div class="bouquet-card">
+                <div class="bouquet-img">
+                    <img src="https://sun9-15.userapi.com/s/v1/ig2/w62qnA5GUUnTimR1tXvOeollDUcYg6PsUk677dtd0I6ANZoxg1XL15AC2B1owxvpJ-4N1mREtmow2uaW_h8CgOz5.jpg?quality=95&crop=0,0,1920,2560&as=32x43,48x64,72x96,108x144,160x213,240x320,360x480,480x640,540x720,640x853,720x960,1080x1440,1280x1707,1440x1920,1920x2560&from=bu&u=apn80ycVqFVGhrVcgN5jXFWx1WD1iN-jaq53snkCUEs&cs=1080x0" alt="Букет 1">
+                </div>
+                <div class="bouquet-info">
+                    <h3 class="bouquet-name">Солнечный комплимент</h3>
+                    <p class="price">2 500 ₽</p>
+                    <a href="catalog.html" class="btn btn-primary btn-small">Заказать</a>
+                </div>
+            </div>
+
+            <!-- Карточка 2 -->
+            <div class="bouquet-card">
+                <div class="bouquet-img">
+                    <img src="https://sun9-7.userapi.com/s/v1/ig2/eYoiBPdN1MJNserFYYA5MM1Ka3B7_MfP_1bUX0_pmBwAc0fa2LhNhn4b-pVwKJbmLfmByLrgKEJZbrVsBEiknE0W.jpg?quality=95&crop=0,0,1920,2560&as=32x43,48x64,72x96,108x144,160x213,240x320,360x480,480x640,540x720,640x853,720x960,1080x1440,1280x1707,1440x1920,1920x2560&from=bu&u=JLxUtXX_eslxeCJ34D47kKijqsjZqtwgCWMdiHlYEPg&cs=1080x0" alt="Букет 2">
+                </div>
+                <div class="bouquet-info">
+                    <h3 class="bouquet-name">Алый бархат</h3>
+                    <p class="price">3 800 ₽</p>
+                    <a href="catalog.html" class="btn btn-primary btn-small">Заказать</a>
+                </div>
+            </div>
+
+            <!-- Карточка 3 -->
+            <div class="bouquet-card">
+                <div class="bouquet-img">
+                    <img src="https://sun9-70.vkuserphoto.ru/s/v1/ig2/cXpmYJIJDVhHh7V8hQdPCoPy4yKFeJn71XAwPhabXkHkO3MOUvsf3lDlYN0rJumaWgIv96l46H0Ib6Jbda9g6Jz3.jpg?quality=95&crop=0,0,1920,2560&as=32x43,48x64,72x96,108x144,160x213,240x320,360x480,480x640,540x720,640x853,720x960,1080x1440,1280x1707,1440x1920,1920x2560&from=bu&u=nXzlM14yG2ageho-5VM9rk3RNG2M8SBRBAE7oqojKoY&cs=1080x0" alt="Букет 3">
+                </div>
+                <div class="bouquet-info">
+                    <h3 class="bouquet-name">Нежность пионов</h3>
+                    <p class="price">3 100 ₽</p>
+                    <a href="catalog.html" class="btn btn-primary btn-small">Заказать</a>
+                </div>
+            </div>  
+        </div>
+                </div>
+        <!-- Декоративная подложка снизу как на скриншоте -->
+        <div class="bouquets-bg-strip"></div>
+    </section>
+
+    <!-- Блок: О нас и Демо-конструктор -->
+    <section class="about" id="about">
+        <div class="container">
+            <h2 class="section-title">О нас</h2>
+            <div class="about-content">
+                <div class="about-image">
+                    <div class="map-wrapper">
+                    <iframe 
+                        src="https://yandex.ru/map-widget/v1/?ll=50.079410%2C53.107655&z=17&pt=50.079410,53.107655,pm2rdm"
+                        width="100%" 
+                        height="400" 
+                        frameborder="0" 
+                        allowfullscreen="true">
+                    </iframe>
+                    </div>
+                </div>
+                <div class="about-text">
+                    <p>В нашем магазине для вас составят самый яркий и нежный букет или цветочную композицию. Мы с трепетом относимся к каждому лепестку, чтобы ваши эмоции запомнились надолго.</p>
+                    <p class="quote">Для цветов не нужен повод ❤</p>
+                    
+                    <!-- Плашка для твоего конструктора -->
+                        <div class="constructor-notice" id="constructor">
+                            <p><strong>Управление сайтом без программистов:</strong> менять заголовки, тексты и контакты можно прямо здесь по клику, а обновлять цены и загружать новые фото букетов — через удобную панель управления.</p>
+                            <button type="button" class="btn btn-outline" id="demo-btn">Попробовать редактор текста</button>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Блок: Форма заказа -->
+    <section class="order-section" id="order">
+        <div class="container">
+            <h2 class="section-title">Закажи свой букет</h2>
+            <form class="order-form" id="orderForm">
+                <input type="text" placeholder="ФИО" required>
+                <input type="tel" placeholder="Номер телефона" required>
+                <input type="text" placeholder="Пожелания к заказу">
+                <button type="submit" class="btn btn-primary">Заказать</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Подвал (Контакты) -->
+    <footer class="footer">
+        <div class="container footer-content">
+            <div>
+                <h3 data-config="footerTitle">Наши контакты</h3>
+                <p>Номер телефона: <a href="tel:+79277263273" data-config="phone">+7 927 726-32-73</a></p>
+            </div>
+            <p class="privacy" data-config="privacyText">Все данные защищены политикой конфиденциальности</p>
+        </div>
+    </footer>
+
+    <!-- Путь к JS согласно твоей структуре папок -->
+    <script src="../js/index.js"></script>
+    <script src="../js/config.js"></script>
+</body>
+</html>
