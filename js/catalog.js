@@ -1,11 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
     const catalogGrid = document.getElementById('catalogGrid');
-    const adminToggle = document.getElementById('adminModeToggle');
     const modal = document.getElementById('addProductModal');
     const closeModalBtn = document.getElementById('closeModalBtn');
     const addProductForm = document.getElementById('addProductForm');
 
-    // Элементы корзины и dialog
     const cartDialog = document.getElementById('cartDialog');
     const openCartBtn = document.getElementById('openCartBtn');
     const closeCartBtn = document.getElementById('closeCartBtn');
@@ -15,18 +13,33 @@ document.addEventListener('DOMContentLoaded', () => {
     const cartOrderForm = document.getElementById('cartOrderForm');
 
     let isAdminMode = false;
-    let cart = []; // Массив товаров в корзине: { id, title, price, image, qty }
+    let cart = [];
 
-    // Начальный список букетов (замени пути ../img/... на свои картинки)
-    let products = [
-        { id: 1, title: 'Нежность рассвета', price: 2500, image: 'https://sun9-15.userapi.com/s/v1/ig2/w62qnA5GUUnTimR1tXvOeollDUcYg6PsUk677dtd0I6ANZoxg1XL15AC2B1owxvpJ-4N1mREtmow2uaW_h8CgOz5.jpg?quality=95&crop=0,0,1920,2560&as=32x43,48x64,72x96,108x144,160x213,240x320,360x480,480x640,540x720,640x853,720x960,1080x1440,1280x1707,1440x1920,1920x2560&from=bu&u=apn80ycVqFVGhrVcgN5jXFWx1WD1iN-jaq53snkCUEs&cs=1080x0' },
+    const DEFAULT_PRODUCTS = [
+        { id: 1, title: 'Солнечный комплимент', price: 2500, image: 'https://sun9-15.userapi.com/s/v1/ig2/w62qnA5GUUnTimR1tXvOeollDUcYg6PsUk677dtd0I6ANZoxg1XL15AC2B1owxvpJ-4N1mREtmow2uaW_h8CgOz5.jpg?quality=95&crop=0,0,1920,2560&as=32x43,48x64,72x96,108x144,160x213,240x320,360x480,480x640,540x720,640x853,720x960,1080x1440,1280x1707,1440x1920,1920x2560&from=bu&u=apn80ycVqFVGhrVcgN5jXFWx1WD1iN-jaq53snkCUEs&cs=1080x0' },
         { id: 2, title: 'Алый бархат', price: 3800, image: 'https://sun9-7.userapi.com/s/v1/ig2/eYoiBPdN1MJNserFYYA5MM1Ka3B7_MfP_1bUX0_pmBwAc0fa2LhNhn4b-pVwKJbmLfmByLrgKEJZbrVsBEiknE0W.jpg?quality=95&crop=0,0,1920,2560&as=32x43,48x64,72x96,108x144,160x213,240x320,360x480,480x640,540x720,640x853,720x960,1080x1440,1280x1707,1440x1920,1920x2560&from=bu&u=JLxUtXX_eslxeCJ34D47kKijqsjZqtwgCWMdiHlYEPg&cs=1080x0' },
-        { id: 3, title: 'Аромат любви', price: 3100, image: 'https://sun9-70.vkuserphoto.ru/s/v1/ig2/cXpmYJIJDVhHh7V8hQdPCoPy4yKFeJn71XAwPhabXkHkO3MOUvsf3lDlYN0rJumaWgIv96l46H0Ib6Jbda9g6Jz3.jpg?quality=95&crop=0,0,1920,2560&as=32x43,48x64,72x96,108x144,160x213,240x320,360x480,480x640,540x720,640x853,720x960,1080x1440,1280x1707,1440x1920,1920x2560&from=bu&u=nXzlM14yG2ageho-5VM9rk3RNG2M8SBRBAE7oqojKoY&cs=1080x0' },
-        { id: 4, title: 'Цветочная симфония', price: 4200, image: 'https://sun9-53.vkuserphoto.ru/s/v1/ig2/FIKfMM0q_vliFDlHgEjNVUpf0SeFi0DMPNoG5EKQWfCzVtAbuo4jK9pUohBsXekZ5Ah1Qw55p7NuAh3VV7DPlUbJ.jpg?quality=95&crop=0,0,1920,2560&as=32x43,48x64,72x96,108x144,160x213,240x320,360x480,480x640,540x720,640x853,720x960,1080x1440,1280x1707,1440x1920,1920x2560&from=bu&u=sTpQP73fLpWFsOINn3XduwdeGb7IcTnCHGIJmLZQLic&cs=1080x0' }
+        { id: 3, title: 'Нежность пионов', price: 3100, image: 'https://sun9-70.vkuserphoto.ru/s/v1/ig2/cXpmYJIJDVhHh7V8hQdPCoPy4yKFeJn71XAwPhabXkHkO3MOUvsf3lDlYN0rJumaWgIv96l46H0Ib6Jbda9g6Jz3.jpg?quality=95&crop=0,0,1920,2560&as=32x43,48x64,72x96,108x144,160x213,240x320,360x480,480x640,540x720,640x853,720x960,1080x1440,1280x1707,1440x1920,1920x2560&from=bu&u=nXzlM14yG2ageho-5VM9rk3RNG2M8SBRBAE7oqojKoY&cs=1080x0' },
+        { id: 4, title: 'Цветочная мелодия', price: 4200, image: 'https://sun9-7.userapi.com/s/v1/ig2/NpZuS2ZXwwMkWrqWN3glviVxtKxNs0BxMhEwtmXvVS_n2RlnBncI3otgIyFVZcxSITGIlefJHOg2eoZ8z_Nd20YN.jpg?quality=95&crop=0,0,1920,2560&as=32x43,48x64,72x96,108x144,160x213,240x320,360x480,480x640,540x720,640x853,720x960,1080x1440,1280x1707,1440x1920,1920x2560&from=bu&u=dAVCYDmMUe2tBw4qQ--yrmPs5NofBHHuel0Se3SHgIk&cs=1080x0' }
     ];
 
-    // --- Отрисовка каталога ---
+function loadProducts() {
+    try {
+        const saved = localStorage.getItem('flower_fairy_products_v2');
+        if (saved) return JSON.parse(saved);
+    } catch (e) {}
+    return [...DEFAULT_PRODUCTS];
+}
+
+function saveProducts() {
+    try {
+        localStorage.setItem('flower_fairy_products_v2', JSON.stringify(products));
+    } catch (e) {}
+}
+
+    let products = loadProducts();
+
     function renderCatalog() {
+        if (!catalogGrid) return;
         catalogGrid.innerHTML = '';
 
         products.forEach(product => {
@@ -73,14 +86,10 @@ document.addEventListener('DOMContentLoaded', () => {
         attachCardEvents();
     }
 
-    // --- События на карточках товаров ---
     function attachCardEvents() {
-        // Кнопка "Заказать" -> добавляет в корзину и открывает dialog
         document.querySelectorAll('.order-bouquet-btn').forEach(btn => {
             btn.addEventListener('click', () => {
-                // Если включён режим редактирования текста — не открываем корзину
                 if (isAdminMode) return;
-
                 const id = Number(btn.dataset.id);
                 const product = products.find(p => p.id === id);
                 if (product) {
@@ -90,18 +99,17 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
-        // Удаление товара (в режиме владельца)
         document.querySelectorAll('.delete-product-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 const id = Number(btn.dataset.id);
                 if (confirm('Удалить этот букет из каталога?')) {
                     products = products.filter(item => item.id !== id);
+                    saveProducts();
                     renderCatalog();
                 }
             });
         });
 
-        // Изменение цены (в режиме владельца)
         document.querySelectorAll('.price-edit-input').forEach(input => {
             input.addEventListener('change', () => {
                 const id = Number(input.dataset.id);
@@ -109,23 +117,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 const product = products.find(item => item.id === id);
                 if (product && newPrice > 0) {
                     product.price = newPrice;
+                    saveProducts();
                 }
             });
         });
 
-        // Изменение названия (в режиме владельца)
         document.querySelectorAll('.product-title[contenteditable="true"]').forEach(titleEl => {
             titleEl.addEventListener('blur', () => {
                 const id = Number(titleEl.dataset.id);
                 const product = products.find(item => item.id === id);
                 if (product && titleEl.textContent.trim()) {
                     product.title = titleEl.textContent.trim();
+                    saveProducts();
                 }
             });
         });
     }
 
-    // --- Логика корзины и <dialog> ---
     function addToCart(product) {
         const existing = cart.find(item => item.id === product.id);
         if (existing) {
@@ -134,6 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
             cart.push({ ...product, qty: 1 });
         }
         renderCart();
+    
     }
 
     function renderCart() {
@@ -170,9 +179,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         cartTotalPrice.textContent = `${totalSum.toLocaleString('ru-RU')} ₽`;
         cartCount.textContent = totalQty;
-        openCartBtn.style.display = totalQty > 0 ? 'flex' : 'none';
 
-        // Кнопки + и - в корзине
         document.querySelectorAll('.plus-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 const item = cart.find(i => i.id === Number(btn.dataset.id));
@@ -198,90 +205,83 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Открытие / закрытие dialog
     if (openCartBtn) {
-        openCartBtn.addEventListener('click', () => cartDialog.showModal());
+        openCartBtn.addEventListener('click', () => {
+            renderCart();
+            cartDialog.showModal();
+        });
     }
     if (closeCartBtn) {
         closeCartBtn.addEventListener('click', () => cartDialog.close());
     }
-    // Закрытие при клике по тёмному фону вокруг dialog
     if (cartDialog) {
         cartDialog.addEventListener('click', (e) => {
-            if (e.target === cartDialog) {
-                cartDialog.close();
-            }
+            if (e.target === cartDialog) cartDialog.close();
         });
     }
 
-    // Отправка заказа из корзины
     if (cartOrderForm) {
         cartOrderForm.addEventListener('submit', (e) => {
             e.preventDefault();
             if (cart.length === 0) {
-                alert('Добавьте хотя бы один букет в корзину!');
-                return;
-            }
-            const name = document.getElementById('orderName').value;
-            alert(`Спасибо, ${name}! Ваш заказ на сумму ${cartTotalPrice.textContent} принят. Флорист «Цветочной феи» скоро свяжется с вами.`);
-            cart = [];
-            renderCart();
-            cartOrderForm.reset();
-            cartDialog.close();
-        });
-    }
-
-    // --- Переключение режима владельца ---
-    if (adminToggle) {
-        adminToggle.addEventListener('change', () => {
-            isAdminMode = adminToggle.checked;
-            renderCatalog();
-        });
-    }
-
-    // --- Модальное окно создания нового товара ---
+alert('Добавьте хотя бы один букет в корзину!');
+return;
+}
+    const name = document.getElementById('orderName').value;
+    alert(`Спасибо, ${name}! Ваш заказ на сумму ${cartTotalPrice.textContent} принят. Флорист «Цветочной феи» скоро свяжется с вами.`);
+    renderCart();
+    cartOrderForm.reset();
+    cartDialog.close();
+});
+}
     if (closeModalBtn) {
-        closeModalBtn.addEventListener('click', () => modal.classList.remove('open'));
-    }
-    if (modal) {
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) modal.classList.remove('open');
-        });
-    }
-
-    if (addProductForm) {
-        addProductForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const title = document.getElementById('newProductTitle').value.trim();
-        const price = Number(document.getElementById('newProductPrice').value);
-        const file = document.getElementById('newProductImage').files;
+    closeModalBtn.addEventListener('click', () => modal.classList.remove('open'));
+}
+if (modal) {
+modal.addEventListener('click', (e) => {
+if (e.target === modal) modal.classList.remove('open');
+});
+}
+if (addProductForm) {
+    addProductForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const title = document.getElementById('newProductTitle').value.trim();
+    const price = Number(document.getElementById('newProductPrice').value);
+    const file = document.getElementById('newProductImage').files[0];
     if (file) {
-        const reader = new FileReader();
-        reader.onload = function(event) {
+    const reader = new FileReader();
+    reader.onload = function(event) {
         products.push({
         id: Date.now(),
         title: title,
         price: price,
         image: event.target.result
     });
+        saveProducts();
         addProductForm.reset();
         modal.classList.remove('open');
         renderCatalog();
-    };
-            reader.readAsDataURL(file);
-            }
-        });
-    }
-    renderCatalog();
-    });
-
-        const globalEditBtn = document.getElementById('globalEditBtn');
+        };
+        reader.readAsDataURL(file);
+        }
+});
+}
+// Привязываем режим владельца каталога к кнопке из config.js внутри DOMContentLoaded
+    const globalEditBtn = document.getElementById('globalEditBtn');
     if (globalEditBtn) {
-        globalEditBtn.addEventListener('click', () => {
-            // Небольшая задержка, чтобы config.js успел переключить своё состояние
-            setTimeout(() => {
-                isAdminMode = globalEditBtn.classList.contains('active');
-                renderCatalog();
-            }, 10);
-        });
-    }
+    globalEditBtn.addEventListener('click', () => {
+    setTimeout(() => {
+    isAdminMode = globalEditBtn.classList.contains('active');
+    renderCatalog();
+    }, 0);
+});
+}
+// Сброс товаров каталога при нажатии на кнопку сброса конфига
+    const resetConfigBtn = document.getElementById('resetConfigBtn');
+    if (resetConfigBtn) {
+    resetConfigBtn.addEventListener('click', () => {
+    localStorage.removeItem('flower_fairy_products');
+});
+}
+renderCatalog();
+});
